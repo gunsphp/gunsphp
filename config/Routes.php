@@ -1,6 +1,6 @@
 <?php
 
-Configure::set('router.databaseRouterEnabled', true);
+Configure::set('router.databaseRouterEnabled', false);
 
 Configure::set('router.defaultController', 'Home');
 

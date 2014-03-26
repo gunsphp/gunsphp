@@ -1,0 +1,92 @@
+{% extends layout %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="well bs-component">
+                <form id="updateform" name="updateform" class="form-horizontal">
+                    <legend>Create a New {{ modelName | title }}</legend>
+                    <fieldset>
+                        <input type="hidden" id="modelid" name="modelid" value="{{ modelName }}">
+                        {% for field in fields %}
+                            <div class="form-group">
+                                {% set editid = null %}
+                                {% set required = null %}
+                                {% set editid = field.name ~ '_id' %}
+                                {% set fieldType = null %}
+
+                                {% if field.primary is defined and field.primary == true %}
+                                    {% set fieldType = 'hidden' %}
+                                {% else %}
+                                    {% set fieldType = field.type %}
+                                {% endif %}
+
+                                {% if field.autoload == true %}
+                                    {% set fieldType = 'hidden' %}
+                                {% endif %}
+
+                                {% if field.required is defined and field.required == true %}
+                                    {% set required = 'required' %}
+                                {% endif %}
+
+                                {% if fieldType != 'hidden' and field.autoload != true %}
+                                    <label for="{{ editid }}" class="col-lg-3 control-label">
+                                        <strong>{{ field.name | replace('_',' ') | title }}</strong>
+                                        {% if required is not null %}
+                                            <span style="color: red;"><sup>*</sup></span>
+                                        {% endif %}
+                                    </label>
+                                {% endif %}
+
+                                <div class="col-lg-9">
+                                    {% if field.dropdown is defined and field.dropdown == true %}
+                                    {% else %}
+
+                                        <input id="{{ editid }}" name="{{ editid }}" type="{{ fieldType }}"
+                                               class="form-control"
+                                               placeholder="{{ field.name | replace('_',' ') | title }}"
+                                                {{ reqiured }}>
+                                    {% endif %}
+
+                                    {# display a * for required fields #}
+
+                                    {% if field.comment is defined %}
+                                        <span class="help-block">{{ field.comment }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="form-group">
+                            <div class="col-lg-9 col-lg-offset-3">
+                                <input type="submit" value="Submit" class="btn btn-primary btn-sm"/>
+                                <a href="{{ baseUrl() }}{{ Router.urlFromName('crud_read', {'modelName':modelName}) }}"
+                                   class="btn btn-default btn-sm">Back</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div id="loadingdiv" class="alert alert-danger" style="display: none;"></div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="bs-component">
+                <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
+                    <li class="active">
+                        <a href="{{ baseUrl() ~ Router.urlFromName('crud_create', {'modelName':modelName}) }}">
+                            Create New
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{ baseUrl() ~ Router.urlFromName('crud_read', {'modelName':modelName}) }}">
+                            List All {{ tableName | replace('_',' ') | title }}
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{ baseUrl() ~ Router.urlFromName('crud_listall') }}">
+                            List All Models
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

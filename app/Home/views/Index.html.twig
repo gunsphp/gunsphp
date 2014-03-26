@@ -1,0 +1,15 @@
+{% extends layout %}
+{% block content %}
+    <style type="text/css">
+        .highlight {
+            background-color: #86D5DB;
+            padding: 10px;
+        }
+    </style>
+    <h1>Welcome to GunsPHP</h1>
+    <span id="foo">Loading...</span>
+    <hr/>
+    <h3>Controller: <strong>Home</strong><br/>Action: <strong>Index</strong></h3>
+    <pre>Action File Located at : {{ actionFilePath }}</pre>
+    <pre>Action View Located at : {{ actionViewPath }}</pre>
+{% endblock %}

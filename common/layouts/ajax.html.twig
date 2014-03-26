@@ -1,0 +1,10 @@
+<html>
+<head>
+    {{ Html.js('jquery/jquery-2.0.3.min') | raw }}
+</head>
+<body>
+{% block content %}
+{% endblock %}
+{{ js_buffer | raw }}
+</body>
+</html>

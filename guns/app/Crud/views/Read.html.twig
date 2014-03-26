@@ -1,0 +1,38 @@
+{% extends layout %}
+{% block content %}
+    <legend>List of All {{ tableName | replace('_',' ') | title }}</legend>
+    <table id="tableid" class="table table-stripped table-responsive">
+        <thead>
+        <tr>
+            {% for column in displayColumns %}
+                <th>{{ column | replace('_',' ') | title }}</th>
+            {% endfor %}
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if data == false %}
+            <h3>No Data Available!</h3>
+        {% else %}
+            {% for d in data %}
+                <tr>
+                    {% for column in displayColumns %}
+                        <td>{{ d[column] }}</td>
+                    {% endfor %}
+                    <td>
+                        {{ Html.link(Router.urlFromName('crud_view',{'modelName':modelName,'id':d[primaryKey]}), 'View') }}
+                        {{ Html.link(Router.urlFromName('crud_update',{'modelName':modelName,'id':d[primaryKey]}), 'Edit') }}
+                        {{ Html.link('javascript://', 'Delete', {'class':'deleteEntry','dataid':d[primaryKey]}) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+    <p>
+        {{ Html.link(Router.urlFromName('crud_create',{'modelName':modelName}), 'Add a New ' ~ modelName | title, {'class':'btn btn-warning btn-sm'}) }}
+        {{ Html.link(Router.urlFromName('crud_configure',{'modelName':modelName}), 'Configure CRUD for ' ~ tableName | replace('_',' ') | title, {'class':'btn btn-info btn-sm'}) }}
+        {{ Html.link(Router.urlFromName('crud_listall',{'modelName':modelName}), 'List All Models', {'class':'btn btn-primary btn-sm'}) }}
+    </p>
+    <input type="hidden" id="modelName" value="{{ modelName }}"/>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error : {{ file }}</title>
+</head>
+<body>
+
+<h3>An Error has encountered</h3>
+
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+    <table>
+        <tr>
+            <td>Severity</td>
+            <td>{{ severity }}</td>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td>{{ message }}</td>
+        </tr>
+        <tr>
+            <td>File Name</td>
+            <td>{{ file }}</td>
+        </tr>
+        <tr>
+            <td>Line Number</td>
+            <td>{{ line }}</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends layout %}
+
+{% block content %}
+    <legend>List of All Available Models</legend>
+    <table class="table">
+        {% for model in models %}
+            <tr>
+                <td style="width: 25%;">
+                    <strong>{{ model }}</strong>
+                </td>
+                <td style="width: 25%;">
+                    <a href="{{ baseUrl() ~ Router.urlFromName('crud_read', {'modelName': model}) }}">List All</a>
+                </td>
+                <td style="width: 25%;">
+                    <a href="{{ baseUrl() ~ Router.urlFromName('crud_create', {'modelName': model}) }}">Create New</a>
+                </td>
+                <td style="width: 25%;">
+                    <a href="{{ baseUrl() ~ Router.urlFromName('crud_configure', {'modelName': model}) }}">Configure</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

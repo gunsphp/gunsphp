@@ -26,13 +26,16 @@ set_error_handler('exceptionHandler');
 App::uses('ActiveRecord', 'vendors' . DS . 'php-activerecord');
 App::import('database', 'config');
 
-$connections = DB::getDbConfig();
-ActiveRecord\Config::initialize(function ($cfg) use ($connections) {
-    $cfg->set_model_directory(COMMON_DIR . DS . 'Models');
-    $cfg->set_connections($connections[Configure::get('database.defaultDriver')]);
-});
+if (Configure::get('database.appUsesDatabase')) {
+    $connections = DB::getDbConfig();
+    ActiveRecord\Config::initialize(function ($cfg) use ($connections) {
+        $cfg->set_model_directory(COMMON_DIR . DS . 'Models');
+        $cfg->set_connections($connections[Configure::get('database.defaultDriver')]);
+    });
 
-App::uses('Model');
+    App::uses('Model');
+
+}
 
 $loader = loadClass('Loader');
 

@@ -49,4 +49,67 @@ class Validator
     {
         return is_numeric($string);
     }
+
+    public function validateFromModel($data, $tableName)
+    {
+        $columns = Cache::get($tableName . "_columns");
+        if (!$columns) {
+            $columns = Model::getColumnInfo($tableName);
+            Cache::set($tableName . "_columns");
+        }
+        $result = array();
+        //$columns = json_decode($columns, true);
+        foreach ($data as $d) {
+            $proceed = true;
+            foreach ($d as $fieldName => $fieldValue) {
+                $colComments = false;
+                foreach ($columns as $col) {
+                    if ($col['field'] == $fieldName) {
+                        $colComments = $col['comment'];
+                        if (strlen($colComments) > 0) {
+                            $colComments = json_decode($colComments, true);
+                            $colComments = $colComments['validate'];
+                            if (count($colComments) == 0) {
+                                $colComments = false;
+                            }
+                        } else {
+                            $colComments = false;
+                        }
+
+                        if (!$colComments == false) {
+                            foreach ($colComments as $rule => $ruleValue) {
+                                $arguments = array_merge(array($fieldValue), array($ruleValue));
+                                $return = call_user_func_array(array($this, $rule), $arguments);
+                                if ($return == false) {
+                                    $result['errors'][] = array(
+                                        'rule' => $rule,
+                                        'key' => $fieldName,
+                                        'value' => $fieldValue,
+                                        'message' => Text::formatString(Configure::get('validation.errors.' . $rule), $arguments),
+                                        'data' => $d
+                                    );
+                                    $proceed = false;
+                                    break;
+                                }
+                            }
+                            if ($proceed == false)
+                                break;
+                        }
+                    }
+                    if ($proceed == false)
+                        break;
+                }
+                if ($proceed == false)
+                    break;
+            }
+            if ($proceed) {
+                $result['success'][] = $d;
+            }
+        }
+        if (count($result) == 0) {
+            return true;
+        } else {
+            return $result;
+        }
+    }
 } 

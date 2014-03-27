@@ -24,7 +24,9 @@ class Controller extends Events
         $this->roadPath = App::returnFromFile('RoadPath', 'config');
         $this->view = $this->controllerName . ':' . $this->name;
         if (isAjax() == false) {
-            $this->layout = Configure::get('view.defaultLayout');
+            if ($this->layout == null) {
+                $this->layout = Configure::get('view.defaultLayout');
+            }
         } else {
             $this->layout = Configure::get('view.defaultAjaxLayout');
         }

@@ -37,6 +37,7 @@ if (Configure::get('database.appUsesDatabase')) {
 
 }
 
+loadClass('Configure');
 $loader = loadClass('Loader');
 
 $urlClass = loadClass('Url', 'helpers');

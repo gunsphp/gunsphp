@@ -27,4 +27,9 @@ class Request
             }
         }
     }
+
+    public function is($requestType)
+    {
+        return strtoupper($requestType) == $_SERVER['REQUEST_METHOD'];
+    }
 } 

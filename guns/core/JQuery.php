@@ -2,6 +2,10 @@
 
 
 if (!function_exists('isCallback')) {
+    /**
+     * @param null $setTo
+     * @return null
+     */
     function isCallback($setTo = null)
     {
         static $callback = false;
@@ -18,6 +22,9 @@ if (!function_exists('isCallback')) {
 }
 
 if (!function_exists('parseScript')) {
+    /**
+     * @param $script
+     */
     function parseScript($script)
     {
         static $isCallBack = false;
@@ -34,6 +41,10 @@ if (!function_exists('parseScript')) {
 }
 
 if (!function_exists('setScript')) {
+    /**
+     * @param null $script
+     * @return array
+     */
     function setScript($script = null)
     {
         static $_script = array();
@@ -47,6 +58,11 @@ if (!function_exists('setScript')) {
 }
 
 if (!function_exists('linkJs')) {
+    /**
+     * @param $controllerName
+     * @param $actionName
+     * @return string
+     */
     function linkJs($controllerName, $actionName)
     {
         $useInlineScripting = Configure::get('jQuery.script.useInline');
@@ -79,6 +95,10 @@ if (!function_exists('linkJs')) {
 }
 
 if (!function_exists('parseElement')) {
+    /**
+     * @param $elementName
+     * @return string
+     */
     function parseElement($elementName)
     {
         if ($elementName == 'document' || $elementName == 'window' || $elementName == 'this') {
@@ -90,6 +110,9 @@ if (!function_exists('parseElement')) {
 }
 
 if (!function_exists('alert')) {
+    /**
+     * @param $message
+     */
     function alert($message)
     {
         $message = json_encode($message);
@@ -99,6 +122,10 @@ if (!function_exists('alert')) {
 }
 
 if (!function_exists('ajax')) {
+    /**
+     * @param $url
+     * @param $options
+     */
     function ajax($url, $options)
     {
         $defaultOptions = Configure::get('jQuery.ajax.default.options');
@@ -144,6 +171,11 @@ if (!function_exists('ajax')) {
 }
 
 if (!function_exists('setHtml')) {
+    /**
+     * @param $elementName
+     * @param $dataToSet
+     * @param bool $isVariable
+     */
     function setHtml($elementName, $dataToSet, $isVariable = false)
     {
         $elementName = parseElement($elementName);
@@ -157,6 +189,11 @@ if (!function_exists('setHtml')) {
 }
 
 if (!function_exists('setValue')) {
+    /**
+     * @param $elementName
+     * @param $valueToSet
+     * @param bool $isVariable
+     */
     function setValue($elementName, $valueToSet, $isVariable = false)
     {
         if (Text::startsWith($valueToSet, '$')) $isVariable = true;
@@ -170,6 +207,10 @@ if (!function_exists('setValue')) {
 }
 
 if (!function_exists('getValue')) {
+    /**
+     * @param $elementName
+     * @param null $returnToVariableName
+     */
     function getValue($elementName, $returnToVariableName = null)
     {
         $elementName = parseElement($elementName);
@@ -183,6 +224,9 @@ if (!function_exists('getValue')) {
 }
 
 if (!function_exists('click')) {
+    /**
+     * @param $elementName
+     */
     function click($elementName)
     {
         $elementName = parseElement($elementName);
@@ -192,6 +236,11 @@ if (!function_exists('click')) {
 }
 
 if (!function_exists('onClick')) {
+    /**
+     * @param $elementName
+     * @param $callBackFunction
+     * @param bool $preventDefault
+     */
     function onClick($elementName, $callBackFunction, $preventDefault = true)
     {
         $elementName = parseElement($elementName);
@@ -203,6 +252,9 @@ if (!function_exists('onClick')) {
 }
 
 if (!function_exists('doubleClick')) {
+    /**
+     * @param $elementName
+     */
     function doubleClick($elementName)
     {
         $elementName = parseElement($elementName);
@@ -212,6 +264,11 @@ if (!function_exists('doubleClick')) {
 }
 
 if (!function_exists('onDoubleClick')) {
+    /**
+     * @param $elementName
+     * @param $callBackFunction
+     * @param bool $preventDefault
+     */
     function onDoubleClick($elementName, $callBackFunction, $preventDefault = true)
     {
         $elementName = parseElement($elementName);
@@ -223,6 +280,9 @@ if (!function_exists('onDoubleClick')) {
 }
 
 if (!function_exists('blur')) {
+    /**
+     * @param $elementName
+     */
     function blur($elementName)
     {
         $elementName = parseElement($elementName);
@@ -232,6 +292,10 @@ if (!function_exists('blur')) {
 }
 
 if (!function_exists('onBlur')) {
+    /**
+     * @param $elementName
+     * @param $callBackFunction
+     */
     function onBlur($elementName, $callBackFunction)
     {
         $elementName = parseElement($elementName);
@@ -242,6 +306,9 @@ if (!function_exists('onBlur')) {
 }
 
 if (!function_exists('change')) {
+    /**
+     * @param $elementName
+     */
     function change($elementName)
     {
         $elementName = parseElement($elementName);
@@ -251,6 +318,10 @@ if (!function_exists('change')) {
 }
 
 if (!function_exists('onChange')) {
+    /**
+     * @param $elementName
+     * @param $callBackFunction
+     */
     function onChange($elementName, $callBackFunction)
     {
         $elementName = parseElement($elementName);
@@ -261,6 +332,9 @@ if (!function_exists('onChange')) {
 }
 
 if (!function_exists('error')) {
+    /**
+     * @param $elementName
+     */
     function error($elementName)
     {
         $elementName = parseElement($elementName);
@@ -270,6 +344,10 @@ if (!function_exists('error')) {
 }
 
 if (!function_exists('onError')) {
+    /**
+     * @param $elementName
+     * @param $callBackFunction
+     */
     function onError($elementName, $callBackFunction)
     {
         $elementName = parseElement($elementName);
@@ -280,6 +358,9 @@ if (!function_exists('onError')) {
 }
 
 if (!function_exists('focus')) {
+    /**
+     * @param $elementName
+     */
     function focus($elementName)
     {
         $elementName = parseElement($elementName);
@@ -289,6 +370,10 @@ if (!function_exists('focus')) {
 }
 
 if (!function_exists('onFocus')) {
+    /**
+     * @param $elementName
+     * @param $callBackFunction
+     */
     function onFocus($elementName, $callBackFunction)
     {
         $elementName = parseElement($elementName);
@@ -299,6 +384,9 @@ if (!function_exists('onFocus')) {
 }
 
 if (!function_exists('focusIn')) {
+    /**
+     * @param $elementName
+     */
     function focusIn($elementName)
     {
         $elementName = parseElement($elementName);
@@ -308,6 +396,10 @@ if (!function_exists('focusIn')) {
 }
 
 if (!function_exists('onFocusIn')) {
+    /**
+     * @param $elementName
+     * @param $callBackFunction
+     */
     function onFocusIn($elementName, $callBackFunction)
     {
         $elementName = parseElement($elementName);
@@ -318,6 +410,11 @@ if (!function_exists('onFocusIn')) {
 }
 
 if (!function_exists('OnfocusOut')) {
+    /**
+     * @param $elementName
+     * @param $inCallBackFunction
+     * @param null $outCallBackFunction
+     */
     function OnfocusOut($elementName, $inCallBackFunction, $outCallBackFunction = null)
     {
         $elementName = parseElement($elementName);
@@ -331,6 +428,11 @@ if (!function_exists('OnfocusOut')) {
 }
 
 if (!function_exists('toggleClass')) {
+    /**
+     * @param $elementName
+     * @param $classNameToToggle
+     * @param null $condition
+     */
     function toggleClass($elementName, $classNameToToggle, $condition = null)
     {
         $elementName = parseElement($elementName);
@@ -346,6 +448,10 @@ if (!function_exists('toggleClass')) {
 }
 
 if (!function_exists('triggerEvent')) {
+    /**
+     * @param $elementName
+     * @param $eventName
+     */
     function triggerEvent($elementName, $eventName)
     {
         $elementName = parseElement($elementName);
@@ -356,6 +462,10 @@ if (!function_exists('triggerEvent')) {
 }
 
 if (!function_exists('appendTo')) {
+    /**
+     * @param $elementName
+     * @param $whatToAppend
+     */
     function appendTo($elementName, $whatToAppend)
     {
         $elementName = parseElement($elementName);
@@ -368,6 +478,10 @@ if (!function_exists('appendTo')) {
 }
 
 if (!function_exists('addClass')) {
+    /**
+     * @param $elementName
+     * @param $className
+     */
     function addClass($elementName, $className)
     {
         $elementName = parseElement($elementName);
@@ -378,6 +492,11 @@ if (!function_exists('addClass')) {
 }
 
 if (!function_exists('getAttribute')) {
+    /**
+     * @param $elementName
+     * @param $attributeName
+     * @param null $returnToVariableName
+     */
     function getAttribute($elementName, $attributeName, $returnToVariableName = null)
     {
         $elementName = parseElement($elementName);
@@ -392,6 +511,12 @@ if (!function_exists('getAttribute')) {
 }
 
 if (!function_exists('setAttribute')) {
+    /**
+     * @param $elementName
+     * @param $attributeName
+     * @param $valueToSet
+     * @param null $returnToVariableName
+     */
     function setAttribute($elementName, $attributeName, $valueToSet, $returnToVariableName = null)
     {
         $elementName = parseElement($elementName);
@@ -405,6 +530,11 @@ if (!function_exists('setAttribute')) {
 }
 
 if (!function_exists('getCssProperty')) {
+    /**
+     * @param $elementName
+     * @param string $cssAttribute
+     * @param null $returnToVariable
+     */
     function getCssProperty($elementName, $cssAttribute = 'width', $returnToVariable = null)
     {
         $elementName = parseElement($elementName);
@@ -419,6 +549,11 @@ if (!function_exists('getCssProperty')) {
 }
 
 if (!function_exists('setCssProperty')) {
+    /**
+     * @param $elementName
+     * @param string $cssAttribute
+     * @param $newValue
+     */
     function setCssProperty($elementName, $cssAttribute = 'width', $newValue)
     {
         $elementName = parseElement($elementName);
@@ -430,6 +565,10 @@ if (!function_exists('setCssProperty')) {
 }
 
 if (!function_exists('removeClass')) {
+    /**
+     * @param $elementName
+     * @param $classNameToRemove
+     */
     function removeClass($elementName, $classNameToRemove)
     {
         $elementName = parseElement($elementName);
@@ -440,6 +579,11 @@ if (!function_exists('removeClass')) {
 }
 
 if (!function_exists('encode')) {
+    /**
+     * @param $str
+     * @param int $initialTab
+     * @return string
+     */
     function encode($str, $initialTab = 0)
     {
         $tabs = '';
@@ -476,6 +620,10 @@ if (!function_exists('encode')) {
 }
 
 if (!function_exists('skipQuotes')) {
+    /**
+     * @param $str
+     * @return bool
+     */
     function skipQuotes($str)
     {
         $str = str_replace("\n", "", $str);
@@ -507,6 +655,11 @@ if (!function_exists('skipQuotes')) {
 }
 
 if (!function_exists('bindEvent')) {
+    /**
+     * @param $elementName
+     * @param $eventName
+     * @param $callBack
+     */
     function bindEvent($elementName, $eventName, $callBack)
     {
         $elementName = parseElement($elementName);
@@ -516,6 +669,11 @@ if (!function_exists('bindEvent')) {
 }
 
 if (!function_exists('callback')) {
+    /**
+     * @param $function
+     * @param array $params
+     * @return string
+     */
     function callback($function, $params = array())
     {
         isCallback(true);
@@ -526,6 +684,11 @@ if (!function_exists('callback')) {
 }
 
 if (!function_exists('fadeOut')) {
+    /**
+     * @param $elementName
+     * @param string $duration
+     * @param null $callBack
+     */
     function fadeOut($elementName, $duration = 'short', $callBack = null)
     {
         $elementName = parseElement($elementName);
@@ -540,6 +703,11 @@ if (!function_exists('fadeOut')) {
 }
 
 if (!function_exists('fadeIn')) {
+    /**
+     * @param $elementName
+     * @param string $duration
+     * @param null $callBack
+     */
     function fadeIn($elementName, $duration = 'short', $callBack = null)
     {
         $elementName = parseElement($elementName);
@@ -554,6 +722,10 @@ if (!function_exists('fadeIn')) {
 }
 
 if (!function_exists('submit')) {
+    /**
+     * @param $elementName
+     * @param null $callBack
+     */
     function submit($elementName, $callBack = null)
     {
         $elementName = parseElement($elementName);
@@ -567,6 +739,10 @@ if (!function_exists('submit')) {
 }
 
 if (!function_exists('serialize_form')) {
+    /**
+     * @param $elementName
+     * @param null $variableToRetrun
+     */
     function serialize_form($elementName, $variableToRetrun = null)
     {
         $elementName = parseElement($elementName);
@@ -580,6 +756,11 @@ if (!function_exists('serialize_form')) {
 }
 
 if (!function_exists('iif')) {
+    /**
+     * @param $condition
+     * @param $successCallBack
+     * @param null $failedCallBack
+     */
     function iif($condition, $successCallBack, $failedCallBack = null)
     {
         $script = "if($condition) {\n\t";
@@ -594,6 +775,9 @@ if (!function_exists('iif')) {
 }
 
 if (!function_exists('return_false')) {
+    /**
+     *
+     */
     function return_false()
     {
         $script = "return false;\n";
@@ -602,6 +786,10 @@ if (!function_exists('return_false')) {
 }
 
 if (!function_exists('renderajaxView')) {
+    /**
+     * @param $viewName
+     * @return string
+     */
     function renderajaxView($viewName)
     {
         $controller = Controller::getInstance();
@@ -611,6 +799,11 @@ if (!function_exists('renderajaxView')) {
 }
 
 if (!function_exists('is')) {
+    /**
+     * @param $elementName
+     * @param $whatToCheck
+     * @param null $returnToVariableName
+     */
     function is($elementName, $whatToCheck, $returnToVariableName = null)
     {
         $elementName = parseElement($elementName);

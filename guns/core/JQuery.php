@@ -89,7 +89,7 @@ if (!function_exists('linkJs')) {
             $script = "$(document).ready(function() {\n" . implode("\n", setScript()) . "});";
             file_put_contents($fileName, $script);
             $url = loadClass('Url', 'helpers');
-            return "<script type='text/javascript' src='" . $url->baseUrl() . 'public/generated/' . $jsFileName . "'></script>";
+            return "<script type='text/javascript' src='" . $url->baseUrl() . 'generated/' . $jsFileName . "'></script>";
         }
     }
 }

@@ -40,7 +40,7 @@ class Url
         return str_replace(array('//', '../'), '/', trim($uri, '/'));
     }
 
-    public function baseUrl($atRoot = false, $atCore = false, $parse = false)
+    public function baseUrl($atRoot = true, $atCore = false, $parse = false)
     {
         if (isset($_SERVER['HTTP_HOST'])) {
             $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ?

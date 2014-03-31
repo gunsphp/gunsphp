@@ -3,7 +3,7 @@
 class App
 {
 
-    static $paths = array(COMMON_DIR, GUNSPHP_DIR, ROOT);
+    static $paths = array(COMMON_DIR, GUNSPHP_DIR, APP_ROOT);
 
     public static function uses($fileName, $directory = 'core', $extention = '.php')
     {

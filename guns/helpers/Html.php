@@ -9,11 +9,11 @@ class Html
     {
         $url = loadClass('Url');
         if (!is_array($jsFileName)) {
-            return "<script type='text/javascript' src='" . $url->baseUrl() . 'public/js/' . $jsFileName . '.js' . "'></script>";
+            return "<script type='text/javascript' src='" . $url->baseUrl() . 'js/' . $jsFileName . '.js' . "'></script>";
         } else {
             $return = array();
             foreach ($jsFileName as $js) {
-                $return[] = "<script type='text/javascript' src='" . $url->baseUrl() . 'public/js/' . $js . '.js' . "'></script>";
+                $return[] = "<script type='text/javascript' src='" . $url->baseUrl() . 'js/' . $js . '.js' . "'></script>";
             }
             return implode("\n", $return);
         }
@@ -25,14 +25,14 @@ class Html
         $options = $this->convertOptions($options);
         if (!is_array($cssFileName)) {
             if (!Text::startsWith(strtolower($cssFileName), 'http')) {
-                $cssFileName = $url->baseUrl() . 'public/css/' . $cssFileName . '.css';
+                $cssFileName = $url->baseUrl() . 'css/' . $cssFileName . '.css';
             }
             return '<link rel="stylesheet" href="' . $cssFileName . '" ' . $options . '>';
         } else {
             $return = array();
             foreach ($cssFileName as $css) {
                 if (!Text::startsWith(strtolower($css), 'http')) {
-                    $css = $url->baseUrl() . 'public/css/' . $css . '.css';
+                    $css = $url->baseUrl() . 'css/' . $css . '.css';
                 }
                 return '<link rel="stylesheet" href="' . $css . '" ' . $options . '>';
             }
@@ -69,7 +69,7 @@ class Html
     {
         $urlClass = loadClass('Url');
         if (!Text::startsWith($imageUrl, 'http')) {
-            $imageUrl = $urlClass->baseUrl() . 'public/img/' . ltrim($imageUrl, "/");
+            $imageUrl = $urlClass->baseUrl() . 'img/' . ltrim($imageUrl, "/");
         }
         $options = $this->convertOptions($options);
         $element = '<img src="' . $imageUrl . '" ' . $options . ' />';

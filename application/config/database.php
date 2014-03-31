@@ -2,9 +2,11 @@
 
 Configure::set('database.defaultDriver', 'mysql');
 
-class DB {
+class DB
+{
 
-    public static function getDbConfig() {
+    public static function getDbConfig()
+    {
         return array(
             'mysql' => array(
                 'development' => 'mysql://root:@127.0.0.1/gunsphp',

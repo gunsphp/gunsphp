@@ -11,7 +11,7 @@ Configure::set('jQuery.ajax.default.options', array(
 ));
 
 Configure::set('jQuery.ajax.logging', array(
-    'consolelog' => true,
+    'consolelog' => false,
     'logfile' => false
 ));
 

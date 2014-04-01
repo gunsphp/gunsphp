@@ -1,5 +1,7 @@
 <?php
 
+Configure::set('baseurl', 'http://gunsphp.local/');
+
 Configure::set('debug.enabled', true);
 
 /**
@@ -59,3 +61,5 @@ Configure::set('auth.user.model', 'User');
 
 App::import('JQuery', 'config');
 App::import('ValidationErrors', 'config');
+
+Plugin::load('Admin');

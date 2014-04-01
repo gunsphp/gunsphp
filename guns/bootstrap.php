@@ -2,6 +2,7 @@
 
 require GUNSPHP_DIR . DS . 'core' . DS . 'App.php';
 
+App::uses('Plugin');
 App::uses('Configure');
 App::import('config', 'config');
 App::import('autoload', 'config');
@@ -34,7 +35,6 @@ if (Configure::get('database.appUsesDatabase')) {
     });
 
     App::uses('Model');
-
 }
 
 loadClass('Configure');

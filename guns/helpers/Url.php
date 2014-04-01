@@ -16,6 +16,13 @@ class Url
         } elseif (strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0) {
             $uri = substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
         }
+
+        $configureBaseUrl = Configure::get('baseurl');
+        if (!$configureBaseUrl == '') {
+            $uri = $_SERVER['HTTP_HOST'] . $uri;
+            $uri = str_replace($configureBaseUrl, '', $uri);
+        }
+
         // This section ensures that even on servers that require the URI to be in the query string (Nginx) a correct
         // URI is found, and also fixes the QUERY_STRING server var and $_GET array.
         if (strncmp($uri, '?/', 2) === 0) {
@@ -40,16 +47,19 @@ class Url
         return str_replace(array('//', '../'), '/', trim($uri, '/'));
     }
 
-    public function baseUrl($atRoot = true, $atCore = false, $parse = false)
+    public function baseUrl($atRoot = false, $atCore = false, $parse = false)
     {
+        $baseUrlFromConfigure = Configure::get('baseurl');
+        if ($baseUrlFromConfigure !== '') {
+            return $baseUrlFromConfigure;
+        }
         if (isset($_SERVER['HTTP_HOST'])) {
             $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ?
                 'https' : 'http';
             $hostname = $_SERVER['HTTP_HOST'];
             $dir = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
-            $core = preg_split('@/@', str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(dirname
-            (__file__))), null, PREG_SPLIT_NO_EMPTY);
+            $core = preg_split('@/@', str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(dirname(__file__))), null, PREG_SPLIT_NO_EMPTY);
             $core = $core[0];
 
             $tmplt = $atRoot ? ($atCore ? "%s://%s/%s/" : "%s://%s/") : ($atCore ?

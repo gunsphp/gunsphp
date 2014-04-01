@@ -120,13 +120,31 @@ class Router
         $urlExploded = explode('/', $url);
         $controller = ucwords(Configure::get('router.defaultController'));
         $action = ucwords(self::$_defaultAction);
+        $isPlugin = false;
+        $loadedPlugins = Plugin::getPlugins();
         if (isset($urlExploded[0]) && $urlExploded[0] !== '') {
-            $controller = ucwords($urlExploded[0]);
-            unset($urlExploded[0]);
+            if (count($loadedPlugins) > 0 && array_key_exists($urlExploded[0], $loadedPlugins)) {
+                if (isset($urlExploded[1]) && $urlExploded[1] !== '') {
+                    $controller = $urlExploded[0] . "." . $urlExploded[1];
+                } else {
+                    $controller = $urlExploded[0] . "." . $controller;
+                }
+                $isPlugin = true;
+                unset($urlExploded[0]);
+            } else {
+                $controller = ucwords($urlExploded[0]);
+                unset($urlExploded[0]);
+            }
         }
-        if (isset($urlExploded[1]) && $urlExploded[1] !== '') {
-            $action = ucwords($urlExploded[1]);
-            unset($urlExploded[1]);
+        if ($isPlugin) {
+            if (isset($urlExploded[2]) && $urlExploded[2] !== '') {
+
+            }
+        } else {
+            if (isset($urlExploded[1]) && $urlExploded[1] !== '') {
+                $action = ucwords($urlExploded[1]);
+                unset($urlExploded[1]);
+            }
         }
         $params = self::removeBlankParams($urlExploded);
         $route = array(

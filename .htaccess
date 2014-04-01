@@ -1,5 +1,5 @@
 <IfModule mod_rewrite.c>
    RewriteEngine on
-   RewriteCond %{REQUEST_URI} !^/application/public/
-   RewriteRule (.*) /application/public/$1
+   RewriteRule    ^$ application/public/    [L]
+   RewriteRule    (.*) application/public/$1 [L]
 </IfModule>

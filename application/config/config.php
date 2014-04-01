@@ -1,6 +1,6 @@
 <?php
 
-Configure::set('baseurl', '');
+Configure::set('baseurl.pointToRoot', true);
 
 Configure::set('debug.enabled', true);
 

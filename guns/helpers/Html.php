@@ -22,19 +22,29 @@ class Html
     public function css($cssFileName, $options = array())
     {
         $url = loadClass('Url');
+        $controller = Controller::getInstance();
+        $pluginName = $controller->isFromPlugin;
         $options = $this->convertOptions($options);
         if (!is_array($cssFileName)) {
             if (!Text::startsWith(strtolower($cssFileName), 'http')) {
-                $cssFileName = $url->baseUrl() . 'css/' . $cssFileName . '.css';
+                if (!$pluginName == false) {
+                    $cssFileName = $url->baseUrl() . $pluginName . '/css/' . $cssFileName . '.css';
+                } else {
+                    $cssFileName = $url->baseUrl() . 'css/' . $cssFileName . '.css';
+                }
             }
             return '<link rel="stylesheet" href="' . $cssFileName . '" ' . $options . '>';
         } else {
             $return = array();
             foreach ($cssFileName as $css) {
                 if (!Text::startsWith(strtolower($css), 'http')) {
-                    $css = $url->baseUrl() . 'css/' . $css . '.css';
+                    if (!$pluginName == false) {
+                        $css = $url->baseUrl() . $pluginName . '/css/' . $cssFileName . '.css';
+                    } else {
+                        $css = $url->baseUrl() . 'css/' . $cssFileName . '.css';
+                    }
                 }
-                return '<link rel="stylesheet" href="' . $css . '" ' . $options . '>';
+                $return[] = '<link rel="stylesheet" href="' . $css . '" ' . $options . '>';
             }
             return implode("\n", $return);
         }

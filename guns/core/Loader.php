@@ -26,12 +26,34 @@ class Loader
         } else {
             $roadPath = $this->roadPath['http'];
         }
-        $mainAppControllerPath = 'app';
-        $controllerPath = $mainAppControllerPath . DS . $controllerName;
-        $actionPath = $controllerPath . DS . 'actions';
 
-        $mainAppController = 'AppController';
-        $controller = $controllerName . 'AppController';
+        if (Text::contains($controllerName, '.')) {
+            $explodedControllerName = explode('.', $controllerName);
+            $pluginName = $explodedControllerName[0];
+            $ctrlName = $explodedControllerName[1];
+            $mainAppControllerPath = Plugin::getPlugins($pluginName) . DS . 'app';
+            $controllerPath = $mainAppControllerPath . DS . $ctrlName;
+            $actionPath = $controllerPath . DS . 'actions';
+            $mainAppController = $pluginName . 'AppController';
+            $controller = $ctrlName . 'AppController';
+            if (!is_file($mainAppControllerPath . DS . ucwords($ctrlName) . DS . $controller . '.php')) {
+                if (is_file(Plugin::getPlugins($pluginName) . DS . 'public' . DS . $ctrlName . DS . strtolower($actionName))) {
+                    if (strtolower($ctrlName) == 'css') {
+                        header("Content-type: text/css; charset: UTF-8");
+                    }
+                    App::uses(strtolower($actionName), Plugin::getPlugins($pluginName) . DS . 'public' . DS . strtolower($ctrlName), '');
+                    die();
+                }
+            }
+        } else {
+            $pluginName = null;
+            $mainAppControllerPath = 'app';
+            $controllerPath = $mainAppControllerPath . DS . $controllerName;
+            $actionPath = $controllerPath . DS . 'actions';
+            $mainAppController = 'AppController';
+            $controller = $controllerName . 'AppController';
+        }
+
         if ($actionName == '') {
             $actionName = Configure::get('router.defaultAction');
         }
@@ -111,6 +133,9 @@ class Loader
             }
 
             if (isAjax() == false) {
+                if (!$pluginName == null) {
+                    $currentAction->isFromPlugin = $pluginName;
+                }
                 $currentAction->renderView();
             }
 

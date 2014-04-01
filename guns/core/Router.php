@@ -123,11 +123,12 @@ class Router
         $isPlugin = false;
         $loadedPlugins = Plugin::getPlugins();
         if (isset($urlExploded[0]) && $urlExploded[0] !== '') {
-            if (count($loadedPlugins) > 0 && array_key_exists($urlExploded[0], $loadedPlugins)) {
+            if (isset($loadedPlugins[ucwords($urlExploded[0])])) {
                 if (isset($urlExploded[1]) && $urlExploded[1] !== '') {
-                    $controller = $urlExploded[0] . "." . $urlExploded[1];
+                    $controller = ucwords($urlExploded[0]) . "." . ucwords($urlExploded[1]);
+                    unset($urlExploded[1]);
                 } else {
-                    $controller = $urlExploded[0] . "." . $controller;
+                    $controller = ucwords($urlExploded[0]) . "." . ucwords($controller);
                 }
                 $isPlugin = true;
                 unset($urlExploded[0]);
@@ -138,7 +139,10 @@ class Router
         }
         if ($isPlugin) {
             if (isset($urlExploded[2]) && $urlExploded[2] !== '') {
-
+                $action = ucwords($urlExploded[2]);
+                unset($urlExploded[2]);
+            } else {
+                $action = $action;
             }
         } else {
             if (isset($urlExploded[1]) && $urlExploded[1] !== '') {

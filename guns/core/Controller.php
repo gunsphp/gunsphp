@@ -14,6 +14,7 @@ class Controller extends Events
     public $roadPath = array();
     public $view = null;
     public $element = null;
+    public $isFromPlugin = false;
 
     public function __construct()
     {
@@ -59,6 +60,9 @@ class Controller extends Events
             $roadPath = $this->roadPath['http'];
         }
         $layout = Configure::get('view.layoutDir') . DS . $this->layout . Configure::get('view.extention');
+        if ($this->isFromPlugin) {
+            $layout = Plugin::getPlugins($this->isFromPlugin) . DS . 'common' . DS . 'layouts' . DS . $this->layout . Configure::get('view.extention');
+        }
         $this->set('layout', $layout);
 
         if ($viewName == null) $viewName = $this->view;
@@ -69,6 +73,11 @@ class Controller extends Events
             $this->set('js_buffer', linkJs($this->controllerName, $this->name));
         }
         $viewPath = App::getFile($explodedView[1], 'app' . DS . $explodedView[0] . DS . 'views', Configure::get('view.extention'));
+        if ($this->isFromPlugin) {
+            $viewPath = App::getFile($explodedView[1],
+                Plugin::getPlugins($this->isFromPlugin) . DS . 'app' . DS . $explodedView[0] . DS . 'views',
+                Configure::get('view.extention'));
+        }
 
         if (isAjax() && $returnView == false) {
             $viewPath = null;

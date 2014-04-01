@@ -16,9 +16,13 @@ class Plugin
     /**
      * @return array
      */
-    public static function getPlugins()
+    public static function getPlugins($pluginName = null)
     {
-        return self::$_plugins;
+        if ($pluginName == null) {
+            return self::$_plugins;
+        } else {
+            return self::$_plugins[$pluginName];
+        }
     }
 
     /**
@@ -33,4 +37,4 @@ class Plugin
         }
     }
 
-} 
+}

@@ -14,7 +14,7 @@ define('PUBLIC_DIR', APP_ROOT . DS . 'public');
 define('JS_DIR', PUBLIC_DIR . DS . 'js');
 define('CSS_DIR', PUBLIC_DIR . DS . 'css');
 define('IMG_DIR', PUBLIC_DIR . DS . 'img');
-define('API_DIR', 'api');
+define('API_DIR', APP_ROOT . DS . 'api');
 define('PLUGINS_DIR', APP_ROOT . DS . 'plugins');
 
 define('APPCONTROLLER_DIR', COMMON_DIR . DS . 'controller');

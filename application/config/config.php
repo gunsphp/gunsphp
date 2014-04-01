@@ -1,6 +1,6 @@
 <?php
 
-Configure::set('baseurl.pointToRoot', true);
+Configure::set('baseurl', 'http://gunsphp.local/');
 
 Configure::set('debug.enabled', true);
 

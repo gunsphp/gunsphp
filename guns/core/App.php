@@ -9,7 +9,7 @@ class App
     {
         $fileExists = false;
         foreach (self::$paths as $path) {
-            $file = $path . DS . $directory . DS . $fileName . $extention;
+            $file = is_dir($directory) ? $directory . DS . $fileName . $extention : $path . DS . $directory . DS . $fileName . $extention;
             //if ($fileName == 'GunsphpAppController') echo "$file <br/>";
             if (file_exists($file)) {
                 $fileExists = true;
@@ -26,7 +26,7 @@ class App
     {
         $fileExists = false;
         foreach (self::$paths as $path) {
-            $file = $path . DS . $directory . DS . $fileName . $extention;
+            $file = is_dir($directory) ? $directory . DS . $fileName . $extention : $path . DS . $directory . DS . $fileName . $extention;
             if (file_exists($file)) {
                 $fileExists = true;
                 if (class_exists($fileName) === false) {
@@ -41,7 +41,7 @@ class App
     public static function getFile($fileName, $directory = 'core', $extention = '.php')
     {
         foreach (self::$paths as $path) {
-            $file = $path . DS . $directory . DS . $fileName . $extention;
+            $file = is_dir($directory) ? $directory . DS . $fileName . $extention : $path . DS . $directory . DS . $fileName . $extention;
             if (file_exists($file)) {
                 return $file;
             }
@@ -52,10 +52,11 @@ class App
     public static function returnFromFile($fileName, $directory = 'core', $extention = '.php')
     {
         foreach (self::$paths as $path) {
-            $file = $path . DS . $directory . DS . $fileName . $extention;
+            $file = is_dir($directory) ? $directory . DS . $fileName . $extention : $path . DS . $directory . DS . $fileName . $extention;
             if (file_exists($file)) {
                 return include_once $file;
             }
         }
+        return false;
     }
 }

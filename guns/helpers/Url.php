@@ -30,6 +30,8 @@ class Url
             $uri = str_replace($this->baseUrl(), '', $uri);
         }
 
+        //e($this->baseUrl());
+
         // This section ensures that even on servers that require the URI to be in the query string (Nginx) a correct
         // URI is found, and also fixes the QUERY_STRING server var and $_GET array.
         if (strncmp($uri, '?/', 2) === 0) {
@@ -54,9 +56,12 @@ class Url
         return str_replace(array('//', '../'), '/', trim($uri, '/'));
     }
 
-    public function baseUrl($atRoot = null, $atCore = false, $parse = false)
+    public function baseUrl($atRoot = false, $atCore = false, $parse = false)
     {
-        $atRoot = $atRoot == null ? Configure::get('baseurl.pointToRoot') : $atRoot;
+        $baseUrlFromConfigure = Configure::get('baseurl');
+        if ($baseUrlFromConfigure !== '') {
+            return $baseUrlFromConfigure;
+        }
         if (isset($_SERVER['HTTP_HOST'])) {
             $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ?
                 'https' : 'http';

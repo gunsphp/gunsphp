@@ -1,6 +1,6 @@
 <?php
 
-Configure::set('baseurl', 'http://localhost/MyFramework/v0.1/gunsphp/');
+Configure::set('baseurl', '');
 
 Configure::set('debug.enabled', true);
 
@@ -49,7 +49,7 @@ Configure::set('cache.server', array(
 // Default Cache refresh time in seconds
 Configure::set('cache.refreshTime', 3600);
 
-Configure::set('database.appUsesDatabase', true);
+Configure::set('database.appUsesDatabase', false);
 
 Configure::set('router.enabled', true);
 

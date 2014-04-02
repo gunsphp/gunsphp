@@ -31,9 +31,11 @@ class App
                 $fileExists = true;
                 if (class_exists($fileName) === false) {
                     include_once $file;
+                    //echo "<hr/>Found file $file<hr/>";
                     break;
                 }
             }
+            //echo "Cannot find the Specified file $file<br/>";
         }
         return $fileExists;
     }

@@ -59,10 +59,17 @@ class Controller extends Events
         } else {
             $roadPath = $this->roadPath['http'];
         }
-        $layout = Configure::get('view.layoutDir') . DS . $this->layout . Configure::get('view.extention');
+
         if ($this->isFromPlugin) {
             $layout = Plugin::getPlugins($this->isFromPlugin) . DS . 'common' . DS . 'layouts' . DS . $this->layout . Configure::get('view.extention');
+        } else {
+            $layout = null;
         }
+
+        if (!is_file($layout)) {
+            $layout = Configure::get('view.layoutDir') . DS . $this->layout . Configure::get('view.extention');
+        }
+
         $this->set('layout', $layout);
 
         if ($viewName == null) $viewName = $this->view;

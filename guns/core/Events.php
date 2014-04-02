@@ -36,7 +36,13 @@ class Events implements ArrayAccess
                     $options = array('data' => $this->viewVars['post'][$method]);
                 }
                 $options['data']['get'] = $this->Request->get();
-                ajax("$controllerName/$actionName?call=$method", $options);
+                $controller = Controller::getInstance();
+                if (!$controller->isFromPlugin == false) {
+                    $pluginName = $controller->isFromPlugin;
+                    ajax("$pluginName/$controllerName/$actionName?call=$method", $options);
+                } else {
+                    ajax("$controllerName/$actionName?call=$method", $options);
+                }
             } else {
                 $availableEvents = Configure::get('jQuery.events.render');
                 foreach ($availableEvents as $event => $actualEvent) {
@@ -83,7 +89,13 @@ class Events implements ArrayAccess
                                 }
                             }
                         }
-                        bindEvent($selector . $elementName, $actualEvent, callback('ajax', array("$controllerName/$actionName?call=$method", $options)));
+                        $controller = Controller::getInstance();
+                        if (!$controller->isFromPlugin == false) {
+                            $pluginName = $controller->isFromPlugin;
+                            bindEvent($selector . $elementName, $actualEvent, callback('ajax', array("$pluginName/$controllerName/$actionName?call=$method", $options)));
+                        } else {
+                            bindEvent($selector . $elementName, $actualEvent, callback('ajax', array("$controllerName/$actionName?call=$method", $options)));
+                        }
                         $scriptGenerated = ob_get_contents();
                         ob_end_clean();
                         if (ob_get_length() > 0)

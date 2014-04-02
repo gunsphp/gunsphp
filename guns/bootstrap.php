@@ -2,10 +2,21 @@
 
 require GUNSPHP_DIR . DS . 'core' . DS . 'App.php';
 
-App::uses('Plugin');
-App::uses('Configure');
+$commonFile = App::uses('Common');
+if ($commonFile == false) {
+    die('Unable to locate GUNSPHP Framework File: Common.php');
+}
+set_error_handler('exceptionHandler');
+
+loadClass('Configure');
+loadClass('Router');
+Router::initiate();
+loadClass('Plugin');
+
 App::import('config', 'config');
 App::import('autoload', 'config');
+App::import('database', 'config');
+App::import('Routes', 'config');
 
 switch (Configure::get('debug.level')) {
     case 'development':
@@ -18,15 +29,8 @@ switch (Configure::get('debug.level')) {
         die('The Application\'s debug level is not configured correctly!');
 }
 
-$commonFile = App::uses('Common');
-if ($commonFile == false) {
-    die('Unable to locate GUNSPHP Framework File: Common.php');
-}
-set_error_handler('exceptionHandler');
 
 App::uses('ActiveRecord', 'vendors' . DS . 'php-activerecord');
-App::import('database', 'config');
-
 if (Configure::get('database.appUsesDatabase')) {
     $connections = DB::getDbConfig();
     ActiveRecord\Config::initialize(function ($cfg) use ($connections) {
@@ -37,13 +41,10 @@ if (Configure::get('database.appUsesDatabase')) {
     App::uses('Model');
 }
 
-loadClass('Configure');
 $loader = loadClass('Loader');
 
 $urlClass = loadClass('Url', 'helpers');
 $url = $urlClass->getUri();
-
-App::import('Routes', 'config');
 
 if (Router::isRoute($url)) {
     $routerControl = Router::get($url);
